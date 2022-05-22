@@ -102,9 +102,17 @@ class OdriveConfiguration:
             pass
     
     def config(self):
+        print("Start set_odrive_parameters")
         self.set_odrive_parameters()
+        print("Finish set_odrive_parameters")
+        
+        print("Start motor_calibration")
         self.motor_calibration()
+        print("Finish motor_calibration")
+        
+        print("Start encoder_calibration")
         self.encoder_calibration()
+        print("Finish encoder_calibration")
 
     def operation_check(self):
         self.odrv0.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
