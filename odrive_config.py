@@ -2,6 +2,7 @@ import sys
 import time
 import odrive
 from odrive.enums import *
+import fibre.libfibre
 
 class OdriveConfiguration:
     def __init__(self):
@@ -65,7 +66,12 @@ class OdriveConfiguration:
         self.odrv0.axis1.encoder.config.hall_polarity_calibrated = True 
 
         print("Saving manual configuration and rebooting...")
-        self.odrv0.save_configuration()
+        try:
+            self.odrv0.save_configuration()
+        except fibre.libfibre.ObjectLostError:
+            pass # Saving configuration makes the device reboot
+
+        #self.odrv0.save_configuration()
         print("Manual configuration saved")
         try:
             self.odrv0.reboot()
