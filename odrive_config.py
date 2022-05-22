@@ -85,13 +85,27 @@ class OdriveConfiguration:
             self.odrv0.reboot()
         except:
             pass
+        
+        
+        # motor calibration
+        self.find_odrive()
+        
+        self.odrv0.axis0.requested_state = AXIS_STATE_MOTOR_CALIBRATION
+        # Wait for calibration to take place
+        time.sleep(10)
+        self.odrv0.axis0.motor.config.pre_calibrated = True
+
+        self.odrv0.axis1.requested_state = AXIS_STATE_MOTOR_CALIBRATION
+        # Wait for calibration to take place
+        time.sleep(10)
+        self.odrv0.axis1.motor.config.pre_calibrated = True
     
     def motor_calibration(self):
         #print(str(self.odrv0.axis0.motor.config.pole_pairs))
         #print(str(self.odrv0.axis1.motor.config.pole_pairs))
         # Connect to Odrive
         #self.find_odrive()
-        self.odrv0 = odrive.find_any()
+        #self.odrv0 = odrive.find_any()
         
         self.odrv0.axis0.requested_state = AXIS_STATE_MOTOR_CALIBRATION
         # Wait for calibration to take place
