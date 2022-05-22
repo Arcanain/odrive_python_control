@@ -85,14 +85,7 @@ class OdriveConfiguration:
     
     def motor_calibration(self):
         # Connect to Odrive
-        while True:
-            print("Connect to Odrive...")
-            self.odrv0 = odrive.find_any()
-            if self.odrv0 is not None:
-                print("Connect to Odrive Success!!!")
-                break
-            else:
-                print("Disconnect to Odrive...")
+        self.find_odrive()
                 
         self.odrv0.axis0.requested_state = AXIS_STATE_MOTOR_CALIBRATION
         # Wait for calibration to take place
