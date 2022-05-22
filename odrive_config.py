@@ -7,6 +7,9 @@ import fibre.libfibre
 class OdriveConfiguration:
     def __init__(self):
         # Connect to Odrive
+        self.find_odrive()
+    
+    def find_odrive(self):
         while True:
             print("Connect to Odrive...")
             self.odrv0 = odrive.find_any()
@@ -15,7 +18,7 @@ class OdriveConfiguration:
                 break
             else:
                 print("Disconnect to Odrive...")
-    
+                
     def set_odrive_parameters(self):
         """
         Saves odrive axis, motor, encoder and controller parameters
