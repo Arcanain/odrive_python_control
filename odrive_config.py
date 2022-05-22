@@ -67,6 +67,7 @@ class OdriveConfiguration:
 
         print("Saving manual configuration and rebooting...")
         try:
+            print("Save Configuration")
             self.odrv0.save_configuration()
         except fibre.libfibre.ObjectLostError:
             pass # Saving configuration makes the device reboot
@@ -74,6 +75,7 @@ class OdriveConfiguration:
         #self.odrv0.save_configuration()
         print("Manual configuration saved")
         try:
+            print("Odrive reboot")
             self.odrv0.reboot()
         except:
             pass
