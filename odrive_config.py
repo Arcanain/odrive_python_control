@@ -7,9 +7,9 @@ import fibre.libfibre
 class OdriveConfiguration:
     def __init__(self):
         # Connect to Odrive
-        self._find_odrive()
+        self.find_odrive()
     
-    def _find_odrive(self):
+    def find_odrive(self):
         while True:
             print("Connect to Odrive...")
             self.odrv0 = odrive.find_any()
@@ -24,7 +24,7 @@ class OdriveConfiguration:
         """
         Saves odrive axis, motor, encoder and controller parameters
         """
-        self._find_odrive()
+        self.find_odrive()
         
         self.odrv0.axis0.motor.config.pole_pairs = 15
         self.odrv0.axis0.motor.config.resistance_calib_max_voltage = 4
@@ -89,9 +89,8 @@ class OdriveConfiguration:
         except:
             pass
         
-        
         # motor calibration
-        self._find_odrive()
+        self.find_odrive()
         
         self.odrv0.axis0.requested_state = AXIS_STATE_MOTOR_CALIBRATION
         # Wait for calibration to take place
@@ -172,6 +171,6 @@ class OdriveConfiguration:
         self.odrv0.axis1.controller.input_vel = 0
         
 if __name__ == "__main__":
-    odrive = OdriveConfiguration()
-    odrive.config()
-    odrive.operation_check()
+    Odrive_motor_config = OdriveConfiguration()
+    Odrive_motor_config.config()
+    Odrive_motor_config.operation_check()
