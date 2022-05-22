@@ -68,6 +68,9 @@ class OdriveConfiguration:
         self.odrv0.axis1.motor.config.calibration_current = 5
         self.odrv0.axis1.encoder.config.hall_polarity_calibrated = True 
 
+        print(str(self.odrv0.axis0.motor.config.pole_pairs))
+        print(str(self.odrv0.axis1.motor.config.pole_pairs))
+        
         # https://discourse.odriverobotics.com/t/problem-with-save-configuration-using-python/7581
         print("Saving manual configuration and rebooting...")
         try:
