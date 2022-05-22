@@ -84,6 +84,8 @@ class OdriveConfiguration:
             pass
     
     def motor_calibration(self):
+        print(str(self.odrv0.axis0.motor.config.pole_pairs))
+        print(str(self.odrv0.axis1.motor.config.pole_pairs))
         # Connect to Odrive
         self.find_odrive()
                 
@@ -129,6 +131,8 @@ class OdriveConfiguration:
         print("Finish set_odrive_parameters")
         
         print("Start motor_calibration")
+        print(str(self.odrv0.axis0.motor.config.pole_pairs))
+        print(str(self.odrv0.axis1.motor.config.pole_pairs))
         self.motor_calibration()
         print("Finish motor_calibration")
         
