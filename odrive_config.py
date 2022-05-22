@@ -13,6 +13,7 @@ class OdriveConfiguration:
         while True:
             print("Connect to Odrive...")
             self.odrv0 = odrive.find_any()
+            print(self.odrv0)
             if self.odrv0 is not None:
                 print("Connect to Odrive Success!!!")
                 break
