@@ -23,6 +23,8 @@ class OdriveConfiguration:
         """
         Saves odrive axis, motor, encoder and controller parameters
         """
+        self.find_odrive()
+        
         self.odrv0.axis0.motor.config.pole_pairs = 15
         self.odrv0.axis0.motor.config.resistance_calib_max_voltage = 4
         self.odrv0.axis0.motor.config.requested_current_range = 25 
