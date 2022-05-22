@@ -65,6 +65,7 @@ class OdriveConfiguration:
         self.odrv0.axis1.motor.config.calibration_current = 5
         self.odrv0.axis1.encoder.config.hall_polarity_calibrated = True 
 
+        # https://discourse.odriverobotics.com/t/problem-with-save-configuration-using-python/7581
         print("Saving manual configuration and rebooting...")
         try:
             print("Save Configuration")
@@ -73,7 +74,6 @@ class OdriveConfiguration:
             pass # Saving configuration makes the device reboot
 
         #self.odrv0.save_configuration()
-        print("Manual configuration saved")
         try:
             print("Odrive reboot")
             self.odrv0.reboot()
@@ -81,6 +81,16 @@ class OdriveConfiguration:
             pass
     
     def motor_calibration(self):
+        # Connect to Odrive
+        while True:
+            print("Connect to Odrive...")
+            self.odrv0 = odrive.find_any()
+            if self.odrv0 is not None:
+                print("Connect to Odrive Success!!!")
+                break
+            else:
+                print("Disconnect to Odrive...")
+                
         self.odrv0.axis0.requested_state = AXIS_STATE_MOTOR_CALIBRATION
         # Wait for calibration to take place
         time.sleep(10)
@@ -102,10 +112,17 @@ class OdriveConfiguration:
         time.sleep(30)
         self.odrv0.axis1.encoder.config.pre_calibrated = True
         
+        # https://discourse.odriverobotics.com/t/problem-with-save-configuration-using-python/7581
         print("Saving manual configuration and rebooting...")
-        self.odrv0.save_configuration()
-        print("Manual configuration saved")
         try:
+            print("Save Configuration")
+            self.odrv0.save_configuration()
+        except fibre.libfibre.ObjectLostError:
+            pass # Saving configuration makes the device reboot
+
+        #self.odrv0.save_configuration()
+        try:
+            print("Odrive reboot")
             self.odrv0.reboot()
         except:
             pass
