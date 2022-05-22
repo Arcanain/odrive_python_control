@@ -13,7 +13,6 @@ class OdriveConfiguration:
         while True:
             print("Connect to Odrive...")
             self.odrv0 = odrive.find_any()
-            #print(self.odrv0)
             if self.odrv0 is not None:
                 print("Connect to Odrive Success!!!")
                 break
@@ -21,9 +20,7 @@ class OdriveConfiguration:
                 print("Disconnect to Odrive...")
                 
     def set_odrive_parameters(self):
-        """
-        Saves odrive axis, motor, encoder and controller parameters
-        """
+        # Connect to Odrive
         self.find_odrive()
         
         self.odrv0.axis0.motor.config.pole_pairs = 15
@@ -85,25 +82,7 @@ class OdriveConfiguration:
         except:
             pass
         
-        """
-        # motor calibration
-        self.find_odrive()
-        
-        self.odrv0.axis0.requested_state = AXIS_STATE_MOTOR_CALIBRATION
-        # Wait for calibration to take place
-        time.sleep(10)
-        self.odrv0.axis0.motor.config.pre_calibrated = True
-
-        self.odrv0.axis1.requested_state = AXIS_STATE_MOTOR_CALIBRATION
-        # Wait for calibration to take place
-        time.sleep(10)
-        self.odrv0.axis1.motor.config.pre_calibrated = True
-        """
-    
     def motor_calibration(self):
-        #print(str(self.odrv0.axis0.motor.config.pole_pairs))
-        #print(str(self.odrv0.axis1.motor.config.pole_pairs))
-        
         # Connect to Odrive
         self.find_odrive()
     
@@ -148,8 +127,6 @@ class OdriveConfiguration:
         print("Finish set_odrive_parameters")
         
         print("Start motor_calibration")
-        #print(str(self.odrv0.axis0.motor.config.pole_pairs))
-        #print(str(self.odrv0.axis1.motor.config.pole_pairs))
         self.motor_calibration()
         print("Finish motor_calibration")
         
@@ -158,6 +135,11 @@ class OdriveConfiguration:
         print("Finish encoder_calibration")
 
     def operation_check(self):
+        # Connect to Odrive
+        self.find_odrive()
+        
+        print("Motor operation check...")
+        
         self.odrv0.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
         self.odrv0.axis1.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
         self.odrv0.axis0.controller.input_vel = 2
@@ -166,6 +148,8 @@ class OdriveConfiguration:
         time.sleep(10)
         self.odrv0.axis0.controller.input_vel = 0
         self.odrv0.axis1.controller.input_vel = 0
+        
+        print("Motor operation check Success!!!")
         
 if __name__ == "__main__":
     Odrive_motor_config = OdriveConfiguration()
